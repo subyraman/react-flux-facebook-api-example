@@ -1,8 +1,10 @@
 # Usage
 
-Sample code showing how to use the Facebook API with the unidirectional Flux data flow. Also includes examples of how to mock/test a non-React API in the Flux architecture, using mocha/sinon/chai/jsdom. To run the example, just do `node index.js` in the directory.
+Sample code showing how to use the Facebook API with the unidirectional Flux data flow. Also includes examples of how to mock/test a non-React API in the Flux architecture, using mocha/sinon/chai/jsdom. To run the example, just do `node index.js` in the directory. You'll need to create your own app with Facebook, and register your APP_ID in `FacebookActionCreators.js`. 
 
-# Using the Facebook API with React and Flux
+# Using and Testing the Facebook API with React and Flux
+
+**Check out the running example at: http://reactfluxfbapi.herokuapp.com**
 
 For giving us React and Flux, I've seen relatively little about integrating Facebook's own Graph API with their development tools. The tools are so new that there's precious little instruction out there about how to answer questions that are easier to answer with other architectures, like:
 
@@ -242,7 +244,7 @@ global.window = document.defaultView;
 global.navigator = {userAgent: 'node.js'};
 ```
 
-*Mocking the Facebook API*
+**Mocking the Facebook API**
 
 Since the Facebook Graph object is a global object, we have to mock its methods globally. We create a factory for mocking out the Facebook API, in `mock/facebook-api.js`. Every time that FacebookApi.setup() is called, new stubs are attached to the global window which can be monitored.
 
@@ -269,7 +271,7 @@ const facebookApi = {
 module.exports = facebookApi;
 ``` 
 
-*Testing Components*
+**Testing Components**
 
 There are no curveballs here, aside from calling the mock Facebook API for new stubs. We use React's great Test Utilities to render a component into a fake DOM, which we can perform various tests on.
 
@@ -304,7 +306,7 @@ describe('login component', () => {
 })
 ```
 
-*Testing Stores*
+**Testing Stores**
 
 This gets trickier.
 
@@ -369,7 +371,7 @@ Let's step through what's happening here.
 - We capture the callback, and now we can start testing it.
 
 
-*Testing Action Creators*
+**Testing Action Creators**
 
 Again, we follow a similar pattern with action creators. Since the dispatcher is a singleton, we reload our target modules in order, and test accordingly.
 
